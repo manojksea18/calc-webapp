@@ -4,19 +4,42 @@ function App() {
 const [input ,setInput]= useState("");
 const[result ,setResult]=useState("");
 
-const handleClick=()=>{
+const handleClick=(e)=>{
+  setInput(input.concat(e.target.name))
 
 }
 
   const clear =()=>{
+    setInput("");
+    setResult("");
 
   };
   const backspace =()=>{
+    setInput(input.slice(0,-1));
 
   };
 
+  const calculate =()=>{
+    try{
+      setResult(eval(input).toString());
+    }
+    catch(error){
+      setResult("Error");
+
+    };
+    
+
+  }
+
   return (
     <>
+    <div className='mt-4 grid justify-items-center bg-gray-200 min-h-screen ml-64 mr-64' >
+      <div className=''>
+    <input type='text' placeholder='0' value={input} readOnly/>
+    
+    
+    <input type='text' placeholder='Result' value={result} readOnly />
+    </div>
       <div>
         <h1>Calculator</h1>
         <div className='keypad'>
@@ -55,11 +78,12 @@ const handleClick=()=>{
              0 </button>
              <button name="." onClick={handleClick} >
              . </button>
-             <button name="/" onClick={handleClick} >
-             &divide</button>
+             <button onClick={calculate} id='result'>
+              =
+             </button>
 
           
-
+             </div>
         </div>
        
       </div>
